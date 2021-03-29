@@ -1,5 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Api1 from '../views/Api1.vue'
+import Api2 from '../views/Api2.vue'
+import Api3 from '../views/Api3.vue'
+import Details from '../views/Details.vue'
+import {cleanGif, getGif} from '../helpers/useGifs'
 
 const routes = [
   {
@@ -8,15 +13,31 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/Api1',
+    name: 'Api1',
+    component: Api1
+  },
+  {
+    path: '/Api2',
+    name: 'Api2',
+    component: Api2
+  },
+  {
+    path: '/Api3',
+    name: 'Api3',
+    component: Api3
+  },
+  {
+    path: '/:id',
+    name: 'Details',
+    component: Details,
+    beforeEnter: (to, from) => {
+      cleanGif()
+      getGif(to.params.id)
+      return true
     }
-  }
+  },
+  
 ]
 
 const router = createRouter({
